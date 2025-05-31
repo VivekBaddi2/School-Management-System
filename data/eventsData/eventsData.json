@@ -1,0 +1,14 @@
+[
+  {
+    "title": "dummy event",
+    "description": "this is a dummy event",
+    "date": "2025-05-07",
+    "createdAt": "2025-05-13T11:02:21.650Z"
+  },
+  {
+    "title": "Dummy event 2",
+    "description": "This is another dummy event",
+    "date": "2025-05-15",
+    "createdAt": "2025-05-13T11:04:29.792Z"
+  }
+]

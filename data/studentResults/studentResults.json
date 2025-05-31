@@ -1,0 +1,48 @@
+[
+  {
+    "studentName": "Vivek Baddi",
+    "studentClass": "class-1",
+    "rollNo": "2009171830",
+    "exam": "Midterm",
+    "subjectDetails": [
+      {
+        "subjectName": "Artificial Intelligence",
+        "totalMarks": "100",
+        "marksScored": "95"
+      },
+      {
+        "subjectName": "Data Science",
+        "totalMarks": "100",
+        "marksScored": "92"
+      },
+      {
+        "subjectName": "Digital Marketing",
+        "totalMarks": "100",
+        "marksScored": "93"
+      }
+    ]
+  },
+  {
+    "studentName": "Aman Baadkar",
+    "studentClass": "BCA",
+    "rollNo": "2016181919",
+    "exam": "Midterm",
+    "subjectDetails": [
+      {
+        "subjectName": "Artificial Intelligence",
+        "totalMarks": "100",
+        "marksScored": "95"
+      },
+      {
+        "subjectName": "Data Science",
+        "totalMarks": "100",
+        "marksScored": "89"
+      },
+      {
+        "subjectName": "Digital Marketing",
+        "totalMarks": "100",
+        "marksScored": "92"
+      }
+    ]
+  }
+]

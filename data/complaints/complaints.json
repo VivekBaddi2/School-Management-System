@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "name": "Amrut Jadi",
+    "teacherId": "1",
+    "department": "Computer Science",
+    "role": "teacher",
+    "complaint": "Students are making too much noise they don't obey my commands.",
+    "date": "2025-05-14T06:30:49.748Z"
+  },
+  {
+    "id": 2,
+    "name": "Vivek Baddi",
+    "teacherId": "2009171830",
+    "department": "BCA",
+    "role": "student",
+    "complaint": "Dirty washrooms",
+    "date": "2025-05-17T05:55:13.576Z"
+  },
+  {
+    "id": 3,
+    "name": "Amrut Jadi",
+    "teacherId": "1",
+    "department": "Computer Science",
+    "role": "teacher",
+    "complaint": "Teachers is harassing me",
+    "date": "2025-05-17T06:02:33.685Z"
+  }
+]

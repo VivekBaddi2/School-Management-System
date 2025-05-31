@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+    <link href="./src/output.css" rel="stylesheet">
+    <style>
+        /* Add transition effect for smooth mode switching */
+        #containerDiv,
+        #navList,
+        #dropdownMenu, .recentActivitiesSection, .recentActivitiesDiv, .todoSection, .totalStudentsDiv, .totalTeachersDiv, .studentFeesPaid, .combinedStudentAttendance  {
+            transition: background-color 0.1s ease-in, color 1.5s ease, border-color 1.5s ease;
+        }
+
+        /* Dark mode styles */
+        #containerDiv.dark {
+            background-color: black;
+            color: #f3f4f6;
+            /* Light gray */
+        }
+
+        #navList.dark {
+            color: white;
+            background-color: #080808;
+            /* Darker gray */
+
+        }
+
+        #dropdownMenu.dark {
+            color: white;
+            background-color: #080808;
+            /* Darker gray */
+
+        }
+
+        .rectangularNavBar.dark {
+            background-color: black;
+            /* Darker gray */
+            color: white;
+        }
+
+        body.dark {
+            color: white;
+            background-color: black;
+            /* Darker gray */
+        }
+
+        .dropdownContent.dark {
+            background-color: #08080822;
+            /* Darker gray */
+            color: white;
+            backdrop-filter: blur(4px);
+        }
+
+        .dark {
+            background-color: #080808;
+            color: white;
+        }
+
+        /* .totalStudentsDiv.dark, .upcomingEventsDiv.dark , .recentActivitiesSection.dark, .recentActivitiesDiv.dark {
+            background-color: #080808;
+        } */
+        /* .dark h2 {
+            color: white;
+        } */
+
+        .todoSection.dark input{
+            background-color: #080808;
+            color: white;
+        }
+        
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+
+        /* Navbar animation */
+        @keyframes floatingShadow {
+            0% {
+                box-shadow: -10px 5px 12px rgba(118, 62, 208, 0.5);
+            }
+
+            25% {
+                box-shadow: 0px 8px 15px rgba(118, 62, 208, 0.5);
+            }
+
+            50% {
+                box-shadow: 10px 12px 20px rgba(118, 62, 208, 0.5);
+            }
+
+            75% {
+                box-shadow: 0px -10px 15px rgba(118, 62, 208, 0.5);
+            }
+
+            100% {
+                box-shadow: -10px 5px 12px rgba(118, 62, 208, 0.5);
+            }
+        }
+
+        /* Apply animation to the nav bar */
+        #navBar {
+            animation: floatingShadow 5s infinite ease-in-out alternate;
+        }
+    </style>
+</head>
+
+<body class="box-border bg-gray-100">
+    <div class="box-border containerDiv w-screen h-screen bg-gray-100 flex flex-col items-center md:block"
+        id="containerDiv">
+        <header class="w-screen h-[10vh]">
+            <nav class="flex items-center w-screen h-12 p-4 pr-0 " id="navBarContainer">
+                <div class="adminProfile w-[20vw] flex justify-evenly items-center gap-8  p-4 mt-1"
+                    id="adminProfileDiv">
+                    <div class="flex items-center gap-2">
+                        <div class="profilePhotoDiv " id="profilePhotoDiv">
+                            <img class="w-10 h-10 rounded-full overflow-hidden border-1 border-violet-800"
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiMsAFSreCMCI0O8ST3qGtn1BV6w4RgZbrsg&s"
+                                alt="af" id="profileImage">
+                        </div>
+                        <div class="adminNameDiv " id="adminName">
+                            <p class="w-fit" id="adminNameText">Admin Name</p>
+                        </div>
+                    </div>
+                    <div class="dropDownArrowDiv" id="dropDownArrowDiv">
+                        <svg id="dropDownSVG" fill="#000000" width="16" height="16" viewBox="-6.5 0 32 32"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="m18.813 11.406-7.906 9.906c-.75.906-1.906.906-2.625 0L.376 11.406c-.75-.938-.375-1.656.781-1.656h16.875c1.188 0 1.531.719.781 1.656" />
+                        </svg>
+                        <!-- Dropdown menu -->
+                        <ul id="dropdownMenu"
+                            class="font-medium absolute left-24 top-10 mt-2 w-40 bg-white border border-gray-300 rounded-lg shadow-lg hidden">
+                            <li class="px-4 py-2 hover:text-violet-800 cursor-pointer rounded-lg"><a
+                                    href="profile.html">Profile</a></li>
+                            <li class="px-4 py-2 hover:text-violet-800 cursor-pointer rounded-lg"><a
+                                    href="../index.html">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Hamburger Button -->
+                <button class="hamburgerButton block md:hidden p-2 absolute right-4 top-4" id="hamburgerButton">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+
+                <!-- Separate Rectangular NavBar -->
+                <div class="rectangularNavBar hidden fixed top-0 left-0 w-[80vw] h-full bg-white shadow-lg z-50 p-6"
+                    id="rectangularNavBar">
+                    <ul class="flex flex-col gap-4">
+                        <li class="navItem hover:text-violet-800 "><a href="dashboard.html">Dashboard</a></li>
+                        <li class="navItem hover:text-violet-800"><a href="events.html">Manage Events</a></li>
+                        <li class="navItem">
+                            <a href="#" class="studentsDropDownToggle  hover:text-violet-800"
+                                id="studentsDropdownToggle">Students</a>
+                            <ul class="dropdownContent hidden absolute bg-white border border-gray-300 rounded-lg shadow-lg"
+                                id="studentDropdownMobile">
+                                <li class="px-4 py-2 hover:text-violet-800 cursor-pointer"><a
+                                        href="studentAttendance.html">Attendance</a></li>
+                                <li class="px-4 py-2 hover:text-violet-800 cursor-pointer"><a
+                                        href="studentPerformance.html">Performance</a></li>
+                            </ul>
+                        </li>
+                        <li class="navItem hover:text-violet-800"><a href="complaintBoard.html">Complaint Board</a></li>
+                        <li class="navItem">
+
+                            <a href="#" class="teachersDropDownToggle hover:text-violet-800">Teachers</a>
+                            <ul class="dropdownContent hidden absolute bg-white border border-gray-300 rounded-lg shadow-lg"
+                                id="teachersDropdownMobile">
+                                <li class="px-4 py-2 hover:text-violet-800 cursor-pointer"><a
+                                        href="teacherAttendance.html">Attendance</a></li>
+                                <li class="px-4 py-2 hover:text-violet-800 cursor-pointer"><a
+                                        href="teacherManagement.html">Management</a></li>
+                                <li class="px-4 py-2 hover:text-violet-800 cursor-pointer">
+                                    <a href="teacherSalary.html">Salary</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="navItem"><a href="#" class="feePaymentDropDownToggle hover:text-violet-800">Fee
+                                Payments</a>
+                            <ul class="dropdownContent hidden absolute bg-white border border-gray-300 rounded-lg shadow-lg"
+                                id="feePaymentsDropdownMobile">
+                                <li class="px-4 py-2 hover:text-violet-800 cursor-pointer"><a
+                                        href="feeStructure.html">Set Fee Structure</a></li>
+                                <li class="px-4 py-2 hover:text-violet-800 cursor-pointer"><a
+                                        href="feesAnalytics.html">Analytics</a></li>
+                            </ul>
+                        </li>
+                        <button
+                            class="navItem darkLightSwitchButton hover:text-violet-800 hover:cursor-pointer border-2 rounded-2xl p-1 pl-2 pr-2"
+                            type="button" id="darkLightSwitchButtonMobile">Dark Mode</button>
+                    </ul>
+                </div>
+                <!-- Collapsible NavBar -->
+                <div class="navBar hidden flex-col h-auto md:flex md:flex-row md:w-[80vw] md:h-13 rounded-bl-4xl border-1  border-t-0  border-violet-800"
+                    style="box-shadow: 0px 8px 10px #8b5bd8; " id="navBar">
+                    <ul class="navList font-medium  rounded-bl-4xl h-full w-full p-2 bg-white flex items-center justify-evenly"
+                        id="navList">
+                        <li class="navItem hover:text-violet-800" id="dashboardItem"><a
+                                href="dashboard.html">Dashboard</a>
+                        </li>
+                        <li class="navItem hover:text-violet-800" id="eventsItem"><a href="events.html">Manage
+                                Events</a></li>
+                        <li class="navItem" id="studentsItem">
+                            <a href="#" class="studentsDropDownToggle  hover:text-violet-800">Students</a>
+
+                            <ul class="dropdownContent hidden absolute top-12 bg-[#ffffff22] border-1 border-violet-600 rounded-lg shadow-lg backdrop-blur-sm"
+                                id="studentDropdown">
+                                <li class="px-4 py-2 hover:text-violet-800 cursor-pointer rounded-lg"><a
+                                        href="studentAttendance.html">Attendance</a></li>
+                                <li class="px-4 py-2 hover:text-violet-800 cursor-pointer rounded-lg"><a
+                                        href="studentPerformance.html">Performace</a></li>
+                            </ul>
+
+                        </li>
+
+                        <li class="navItem" id="teachersItem">
+                            <a href="#" class="teachersDropDownToggle hover:text-violet-800">Teachers</a>
+                            <ul class="dropdownContent hidden absolute top-12 bg-[#ffffff22] border border-violet-600 rounded-lg shadow-lg backdrop-blur-sm"
+                                id="teachersDropdown">
+                                <li class="px-4 py-2 hover:text-violet-800 cursor-pointer rounded-lg"><a
+                                        href="teacherAttendance.html">Attendance</a></li>
+                                <li class="px-4 py-2 hover:text-violet-800 cursor-pointer rounded-lg"><a
+                                        href="teacherManagement.html">Management</a></li>
+                                <li class="px-4 py-2 hover:text-violet-800 cursor-pointer rounded-lg"><a
+                                        href="teacherSalary.html">Salary</a></li>
+
+                            </ul>
+                        </li>
+                        <li class="navItem hover:text-violet-800" id="complaintsBoardItem"><a
+                                href="complaintBoard.html">Complaint Board</a></li>
+                        <li class="navItem"><a href="#" class="feePaymentDropDownToggle hover:text-violet-800">Fee
+                                Payments</a>
+                            <ul class="dropdownContent hidden absolute top-12 bg-[#ffffff22] border border-violet-600 rounded-lg shadow-lg backdrop-blur-sm"
+                                id="feePaymentsDropdown">
+                                <li class="px-4 py-2 hover:text-violet-800 cursor-pointer"><a
+                                        href="feeStructure.html">Set Fee Structure</a></li>
+                                <li class="px-4 py-2 hover:text-violet-800 cursor-pointer"><a
+                                        href="feesAnalytics.html">Analytics</a></li>
+                            </ul>
+                        </li>
+
+                        <button
+                            class="navItem darkLightSwitchButton hover:text-violet-800 hover:cursor-pointer border-2 rounded-2xl p-1 pl-2 pr-2"
+                            type="button" id="darkLightSwitchButton">Dark Mode</button>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <div class="subContainer w-screen h-[90vh] flex md:flex-row flex-col mt-4">
+             <div class="leftSection flex flex-col justify-center md:w-[40vw] w-[100vw] h-full md:gap-4 p-4">
+                 <section class="w-full rounded-lg p-6 pt-0 pb-0">
+                        <div id="recentActivitiesSection"
+                            class="recentActivitiesSection w-full h-[200px]  border-1 border-violet-800 bg-white shadow-lg rounded-lg p-6 overflow-auto no-scrollbar">
+                            <div id="recentActivitiesDiv"
+                                class="recentActivitiesDiv flex justify-between items-center mb-4">
+                                <h2 class="text-xl font-medium mb-4">Recent Activities</h2>
+                                <button id="clearRecentActivitiesButton"
+                                    class="bg-violet-800 text-white py-2 px-4 rounded-md hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-700 cursor-pointer"
+                                    type="button">Clear</button>
+                            </div>
+                            <ul id="recentActivitiesList" class=" recentActivitiesList space-y-2">
+                                <!-- Completed tasks will be dynamically added here -->
+                            </ul>
+                        </div>
+                    </section>
+
+
+                     <section class="w-full  rounded-lg p-6 pb-0">
+                        <div id="todoSection"
+                            class="todoSection w-full h-[250px] md:w-full border-1 border-violet-800 bg-white shadow-lg rounded-lg p-6 mt-6 overflow-auto no-scrollbar">
+                            <h2 class="text-xl font-medium mb-4">To-Do List</h2>
+                            <form id="todoForm" class="flex items-center gap-4 mb-4">
+                                <input type="text" id="todoInput" placeholder="Add a new task"
+                                    class="w-full p-2 text-black border border-gray-300 rounded-md shadow-sm focus:ring-violet-500 focus:border-violet-500" />
+                                <button type="submit"
+                                    class="bg-violet-800 text-white py-2 px-4 rounded-md hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-500 cursor-pointer">
+                                    Add
+                                </button>
+                            </form>
+                            <ul id="todoList" class="todoList space-y-2">
+                                <!-- To-Do items will be dynamically added here -->
+                            </ul>
+                        </div>
+                    </section>
+            </div>
+            <div class="rightSection  flex flex-col justify-center items-center md:w-[60vw] w-[100vw] h-full gap-4 p-4">
+                <div class="flex gap-4  w-full md:h-[40%]">
+                    <div
+                        class="totalStudentsDiv bg-white border border-violet-800 rounded-lg shadow-lg p-4 flex justify-center items-center flex-col gap-4 text-center w-[50%] h-full">
+                        <h2 class="text-xl md:text-2xl font-semibold text-violet-800">Total Students</h2>
+                        <p class="text-3xl" id="totalStudentsSize"></p>
+                    </div>
+                    <div
+                        class="totalTeachersDiv bg-white border border-violet-800 rounded-lg shadow-lg p-4 flex justify-center items-center flex-col gap-4 text-center w-[50%] h-full">
+                        <h2 class="text-xl md:text-2xl font-semibold text-violet-800">Total Teachers</h2>
+                        <p class="text-3xl" id="totalTeachersSize"></p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4  w-full md:h-[40%]">
+                    <div
+                        class="studentFeesPaid bg-white border border-violet-800 rounded-lg shadow-lg p-4 flex flex-col justify-center items-center gap-4 text-center w-[50%] h-full">
+                        <h2 class="text-xl md:text-2xl font-semibold text-violet-800">Number of students paid fees</h2>
+                        <div class="flex gap-1 justify-center items-center text-3xl">
+                            <p>1</p>
+                            <p>/</p>
+                            <p>1</p>
+                        </div>
+                    </div>
+                    <div
+                        class="combinedStudentAttendance bg-white border border-violet-800 rounded-lg shadow-lg p-4 flex flex-col justify-center items-center gap-4 text-center w-[50%] h-full">
+                        <h2 class="text-xl md:text-2xl font-semibold text-violet-800">Combined Student Attendance</h2>
+                        <p class="text-3xl">92%</p>
+                        <p>This month</p>
+                    </div>
+                </div>
+
+            </div>
+
+           
+        </div>
+    </div>
+    </div>
+    <script src="js/dashboard.js"></script>
+</body>
+
+</html>

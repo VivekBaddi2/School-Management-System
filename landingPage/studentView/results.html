@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+
+    <link href="./src/output.css" rel="stylesheet">
+    <style>
+          /* Add transition effect for smooth mode switching */
+          #containerDiv, #navList, #dropdownMenu {
+            transition: background-color 0.1s ease-in, color 1.5s ease, border-color 1.5s ease;
+        }
+
+        /* Dark mode styles */
+        #containerDiv.dark {
+            background-color: black;
+            color: #f3f4f6;
+            /* Light gray */
+        }
+
+        #navList.dark {
+            color: white;
+            background-color: #080808; /* Darker gray */
+            /* Darker gray */
+            /* border-color: #4b5563; */
+            /* Gray border */
+            /* box-shadow: 0px 8px 10px rgba(31, 41, 55, 0.8); */
+            /* Darker shadow */
+        }
+
+        #dropdownMenu.dark {
+            color: white;
+            background-color: #080808; /* Darker gray */
+
+        }
+
+        .rectangularNavBar.dark {
+            background-color: black; /* Darker gray */
+            color: white;
+        }
+
+        body.dark{
+            color: white;
+            background-color: black; /* Darker gray */
+        }
+        
+        .subContainerDiv.dark {
+            background-color: #080808; /* Darker gray */
+            color: #f3f4f6; /* Light gray */
+        }
+        .firstSection.dark {
+            background-color: black; /* Darker gray */
+            color: white;
+        }
+        .secondSection.dark {
+            background-color: black; /* Darker gray */
+            color: white;
+        }
+
+
+
+          /* Dark mode styles for the form */
+    .form.dark {
+        background-color: #080808; /* Darker gray for form background */
+        border-color: #553c9a; /* Dark gray border */
+        color: #f3f4f6; /* Light gray text */
+    }
+
+    .form.dark label {
+        color: #f3f4f6; /* White for labels in dark mode */
+    }
+
+    .form.dark input, .form.dark select {
+        background-color: #080808; /* Dark gray input background */
+        border-color: #c8bcf6; /* Medium gray border */
+        color: #f3f4f6; /* Light gray text */
+    }
+
+    .form.dark input::placeholder, .form.dark select::placeholder {
+        color: #a0aec0; /* Lighter gray for placeholder text */
+    }
+
+        /* Dark mode styles for the results container */
+        .resultsContainer.dark {
+        background-color: #080808; /* Darker gray for results container */
+        border-color: #553c9a; /* Dark gray border */
+        color: #f3f4f6; /* Light gray text */
+    }
+
+    .resultsContainer.dark table {
+        background-color: #080808; /* Darker gray for table background */
+        color: #f3f4f6; /* Light gray text */
+    }
+
+    .resultsContainer.dark th, .resultsContainer.dark td {
+        border-color: #c8bcf6; /* Dark gray border for table cells */
+    }
+
+    .resultsContainer.dark th {
+        background-color: #553c9a; /* Dark violet for table headers */
+        color: #f3f4f6; /* Light gray text */
+    }
+
+        /* Dark mode styles for the total marks section */
+        .resultsContainer.dark .totalMarks {
+        color: #f3f4f6; /* Light gray text */
+    }
+
+    /* Dark mode styles for buttons */
+    .form.dark button, .resultsContainer.dark button {
+        background-color: #553c9a; /* Dark violet button */
+        color: #f3f4f6; /* Light gray text */
+    }
+
+    .form.dark button:hover, .resultsContainer.dark button:hover {
+        background-color: #6b46c1; /* Lighter violet on hover */
+    }
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+                
+            .form input::placeholder, .form.dark select::placeholder {
+        color: #a0aec0; /* Lighter gray for placeholder text */
+    }
+        /* Navbar animation */
+        @keyframes floatingShadow {
+            0% {
+                box-shadow: -10px 5px 12px rgba(118, 62, 208, 0.5);
+            }
+
+            25% {
+                box-shadow: 0px 8px 15px rgba(118, 62, 208, 0.5);
+            }
+
+            50% {
+                box-shadow: 10px 12px 20px rgba(118, 62, 208, 0.5);
+            }
+
+            75% {
+                box-shadow: 0px -10px 15px rgba(118, 62, 208, 0.5);
+            }
+
+            100% {
+                box-shadow: -10px 5px 12px rgba(118, 62, 208, 0.5);
+            }
+        }
+
+        /* Apply animation to the nav bar */
+        #navBar {
+            animation: floatingShadow 5s infinite ease-in-out alternate;
+        }
+
+          /* Animation for sliding in from left to right */
+        @keyframes slideInFromRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        .secondSection{
+            animation: slideInFromRight 0.5s ease-in-out forwards;
+        }
+    </style>
+</head>
+
+<body class="box-border bg-gray-100">
+    <div class="box-border containerDiv w-[100vw] h-screen bg-gray-100" id="containerDiv">
+        <header class="w-screen h-[10vh]">
+            <nav class="flex items-center w-screen h-12 p-4 pr-0 " id="navBarContainer">
+                <div class="studentProfile w-[20vw] flex justify-evenly items-center gap-8  p-4 mt-1"
+                    id="studentProfileDiv">
+                    <div class="flex items-center gap-2">
+                        <div class="profilePhotoDiv " id="profilePhotoDiv">
+                            <img class="w-10 h-10 rounded-full overflow-hidden border-1 border-violet-800"
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiMsAFSreCMCI0O8ST3qGtn1BV6w4RgZbrsg&s"
+                                alt="af" id="profileImage">
+                        </div>
+                        <div class="studentNameDiv " id="studentName">
+                            <p class="w-fit" id="studentNameText">Student Name</p>
+                        </div>
+                    </div>
+                    <div class="dropDownArrowDiv" id="dropDownArrowDiv">
+                        <svg id="dropDownSVG" fill="#000000" width="16" height="16" viewBox="-6.5 0 32 32"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="m18.813 11.406-7.906 9.906c-.75.906-1.906.906-2.625 0L.376 11.406c-.75-.938-.375-1.656.781-1.656h16.875c1.188 0 1.531.719.781 1.656" />
+                        </svg>
+                        <!-- Dropdown menu -->
+                        <ul id="dropdownMenu"
+                            class="font-medium absolute left-24 top-10 mt-2 w-40 bg-white border border-gray-300 rounded-lg shadow-lg hidden">
+                            <li class="px-4 py-2 hover:text-violet-800 cursor-pointer"><a href="profile.html">Profile</a></li>
+                            <li class="px-4 py-2 hover:text-violet-800 cursor-pointer"><a href="../index.html">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+                 <!-- Hamburger Button -->
+                <button class="hamburgerButton block md:hidden p-2 absolute right-4 top-4" id="hamburgerButton">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+
+                <!-- Separate Rectangular NavBar -->
+                <div class="rectangularNavBar hidden fixed top-0 left-0 w-[80vw] h-full bg-white shadow-lg z-50 p-6" id="rectangularNavBar">
+                    <ul class="flex flex-col gap-4">
+                        <li class="navItem hover:text-violet-800"><a href="index.html">Dashboard</a></li>
+                        <li class="navItem hover:text-violet-800"><a href="events.html">Events</a></li>
+                        <li class="navItem hover:text-violet-800"><a href="results.html">Results</a></li>
+                        <li class="navItem hover:text-violet-800"><a href="notes.html">Notes</a></li>
+                        <li class="navItem hover:text-violet-800"><a href="fees.html">Fees</a></li>
+                        <li class="navItem hover:text-violet-800"><a href="complaintBoard.html">Complaint Board</a></li>
+                        <button
+                            class="navItem darkLightSwitchButton hover:text-violet-800 hover:cursor-pointer border-2 rounded-2xl p-1 pl-2 pr-2"
+                            type="button" id="darkLightSwitchButtonMobile">Dark Mode</button>
+                    </ul>
+                </div>
+                <!-- Collapsible NavBar -->
+                <div class="navBar hidden flex-col h-auto md:flex md:flex-row md:w-[80vw] md:h-13 rounded-bl-4xl border-1  border-t-0  border-violet-800"
+                    style="box-shadow: 0px 8px 10px #8b5bd8; " id="navBar">
+                    <ul class="navList font-medium  rounded-bl-4xl h-full w-full p-2 bg-white flex items-center justify-evenly"
+                        id="navList">
+                        <li class="navItem hover:text-violet-800" id="dashboardItem"><a href="index.html">Dashboard</a>
+                        </li>
+                        <li class="navItem hover:text-violet-800" id="eventsItem"><a href="events.html">Events</a></li>
+                        <li class="navItem hover:text-violet-800" id="resultsItem"><a href="results.html">Results</a>
+                        </li>
+                        <li class="navItem hover:text-violet-800" id="notesItem"><a href="notes.html">Notes</a></li>
+                        <li class="navItem hover:text-violet-800" id="feesItem"><a href="fees.html">Fees</a></li>
+                        <li class="navItem hover:text-violet-800" id="complaintItem"><a
+                                href="complaintBoard.html">Complaint Board</a></li>
+                        <button
+                            class="navItem darkLightSwitchButton hover:text-violet-800 hover:cursor-pointer border-2 rounded-2xl p-1 pl-2 pr-2"
+                            type="button" id="darkLightSwitchButton">Dark Mode</button>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+       <div class="subContainerDiv flex flex-col lg:flex-row w-screen h-auto lg:h-[90vh]" id="subContainerDiv">
+        <!-- Left Section -->
+        <section class="firstSection w-full lg:w-[50%] h-auto lg:h-full bg-gray-100 p-6 lg:p-0" id="firstSection">
+
+            <h1 class="text-3xl lg:text-4xl font-medium text-center">Check Results</h1>
+            <h2 class="text-lg lg:text-2xl font-light text-center text-gray-400">Enter your details</h2>
+            <div class="form mx-auto mt-4 w-[90%] max-w-md bg-white border-2 border-violet-800 p-6 rounded-lg shadow-md">
+                <form action="">
+                    <div class="formGroup mb-4">
+                        <label for="studentNameInput" class="block text-gray-700 font-medium mb-2">Student Name:</label>
+                        <input type="text" id="studentNameInput" name="studentName" placeholder="Enter your full name" class="inputField w-full p-3 border border-violet-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500" required>
+                    </div>
+                    <div class="formGroup mb-4">
+                        <label for="classInput" class="block text-gray-700 font-medium mb-2">Class:</label>
+                        <input type="text" id="classInput" name="class" placeholder="Enter your class" class="inputField w-full p-3 border border-violet-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500" required>
+                    </div>
+                    <div class="formGroup mb-4">
+                        <label for="rollNoInput" class="block text-gray-700 font-medium mb-2">Roll No:</label>
+                        <input type="text" id="rollNoInput" name="rollNo" placeholder="Enter your roll number" class="inputField w-full p-3 border border-violet-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500" required>
+                    </div>
+                    <div class="formGroup mb-4">
+                        <label for="examNameSelect" class="block text-gray-700 font-medium mb-2">Exam Name:</label>
+                        <select id="examNameSelect" name="examName" class="inputField w-full p-3 border border-violet-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500" required>
+                            <option value="" disabled selected>Select an exam</option>
+                            <option value="midterm">Midterm</option>
+                            <option value="final">Final</option>
+                            <option value="quiz">Quiz</option>
+                            <option value="assignment">Assignment</option>
+                        </select>
+                    </div>
+                    <div class="formGroup">
+                        <button type="submit" id="submitButton" class="w-full bg-violet-800 text-white font-medium py-3 rounded-md hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-500 cursor-pointer">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Right Section -->
+        <section class="secondSection hidden w-full lg:w-[50%] h-auto lg:h-full bg-gray-100 p-6 lg:p-0" id="secondSection">
+            <h1 class="text-3xl lg:text-4xl font-medium text-center">Results</h1>
+            <div class="resultsContainer mt-4 w-[90%] mx-auto bg-white border-2 border-violet-800 p-6 rounded-lg shadow-md">
+                <div class="resultsContent overflow-auto no-scrollbar" id="resultsContent">
+                    <h2 class="text-xl lg:text-2xl font-light text-center text-gray-400" id="examName">Final Exams May-2025</h2>
+                    <p class="text-md lg:text-lg font-medium text-center mt-2" id="studentResultName"></p>
+                    <p class="text-md lg:text-lg font-medium text-center mb-4" id="studentRollNo"></p>
+                    <table id="resultsTable" class="w-full border-collapse border border-violet-800 text-center">
+                        <thead>
+                            <tr class="bg-violet-800 text-white">
+                                <th class="border border-violet-800 px-4 py-2">Subject</th>
+                                <th class="border border-violet-800 px-4 py-2">Marks Obtained</th>
+                                <th class="border border-violet-800 px-4 py-2">Total Marks</th>
+                                <th class="border border-violet-800 px-4 py-2">Percentage</th>
+                                <th class="border border-violet-800 px-4 py-2">Remark</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- <tr>
+                                <td class="border border-violet-800 px-4 py-2">Mathematics</td>
+                                <td class="border border-violet-800 px-4 py-2">85</td>
+                                <td class="border border-violet-800 px-4 py-2">100</td>
+                                <td class="border border-violet-800 px-4 py-2">85%</td>
+                                <td class="border border-violet-800 px-4 py-2">Pass</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-violet-800 px-4 py-2">Science</td>
+                                <td class="border border-violet-800 px-4 py-2">78</td>
+                                <td class="border border-violet-800 px-4 py-2">100</td>
+                                <td class="border border-violet-800 px-4 py-2">78%</td>
+                                <td class="border border-violet-800 px-4 py-2">Pass</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-violet-800 px-4 py-2">English</td>
+                                <td class="border border-violet-800 px-4 py-2">90</td>
+                                <td class="border border-violet-800 px-4 py-2">100</td>
+                                <td class="border border-violet-800 px-4 py-2">90%</td>
+                                <td class="border border-violet-800 px-4 py-2">Pass</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-violet-800 px-4 py-2">History</td>
+                                <td class="border border-violet-800 px-4 py-2">65</td>
+                                <td class="border border-violet-800 px-4 py-2">100</td>
+                                <td class="border border-violet-800 px-4 py-2">65%</td>
+                                <td class="border border-violet-800 px-4 py-2">Pass</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-violet-800 px-4 py-2">Geography</td>
+                                <td class="border border-violet-800 px-4 py-2">50</td>
+                                <td class="border border-violet-800 px-4 py-2">100</td>
+                                <td class="border border-violet-800 px-4 py-2">50%</td>
+                                <td class="border border-violet-800 px-4 py-2">Fail</td>
+                            </tr> -->
+                        </tbody> 
+                    </table>
+                    <div class="totalMarks mt-4 flex flex-wrap gap-8">
+                        <p class="text-md lg:text-lg font-medium">Total Marks Obtained: <span id="totalMarksObtained"></span></p>
+                        <p class="text-md lg:text-lg font-medium">Total Marks: <span id="totalMarksPossible"></span></p>
+                        <p class="text-md lg:text-lg font-medium">Overall Percentage: <span id="overallPercentage"></span></p>
+                        <p class="text-md lg:text-lg font-medium">Overall Remark: <span id="overallRemark"></span></p>
+                        <button class="w-full bg-violet-800 text-white font-medium py-3 rounded-md hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-500 cursor-pointer mt-4" id="downloadResultButton">
+                            Download Result
+                        </button>
+                </div>
+            </div>
+       </div>
+       </section>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <script src="results.js"></script>
+</body>
+</div>
+</body>
+
+</html>

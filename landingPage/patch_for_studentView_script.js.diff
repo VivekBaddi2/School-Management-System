@@ -1,0 +1,58 @@
+<<<<<<<
+const switchButton=document.querySelectorAll('.darkLightSwitchButton');
+ const navList = document.getElementById('navList');
+ const containerDiv = document.getElementById('containerDiv');
+ const hamburgerButton = document.getElementById('hamburgerButton');
+ const rectangularNavBar = document.getElementById('rectangularNavBar');
+ const navBar = document.getElementById('navBar');
+ const dropDownSVG = document.getElementById('dropDownSVG');
+ const dropdownMenu = document.getElementById('dropdownMenu');
+ const attendanceRateDiv = document.getElementById('attendanceRateDiv');
+ const averageGradeDiv = document.getElementById('averageGradeDiv');
+ const attendanceGraphDiv = document.getElementById('attendanceGraphDiv');
+ const body = document.body;
+=======
+const switchButton=document.querySelectorAll('.darkLightSwitchButton');
+ const navList = document.getElementById('navList');
+ const containerDiv = document.getElementById('containerDiv');
+ const hamburgerButton = document.getElementById('hamburgerButton');
+ const rectangularNavBar = document.getElementById('rectangularNavBar');
+ const navBar = document.getElementById('navBar');
+ const dropDownSVG = document.getElementById('dropDownSVG');
+ const dropdownMenu = document.getElementById('dropdownMenu');
+ const attendanceRateDiv = document.getElementById('attendanceRateDiv');
+ const averageGradeDiv = document.getElementById('averageGradeDiv');
+ const attendanceGraphDiv = document.getElementById('attendanceGraphDiv');
+ const body = document.body;
+
+// Function to update student name and profile picture in navbar from localStorage
+function updateStudentProfileInNavbar() {
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+    if (loggedInUser) {
+        const profileImage = document.getElementById('profileImage');
+        const studentNameText = document.getElementById('studentNameText');
+
+        if (profileImage && loggedInUser.profilePicture) {
+            profileImage.src = loggedInUser.profilePicture;
+        }
+
+        if (studentNameText && loggedInUser.name) {
+            studentNameText.innerText = loggedInUser.name;
+        }
+    }
+}
+>>>>>>> REPLACE
+
+<<<<<<<
+document.addEventListener('DOMContentLoaded', () => {
+    loadAttendanceRate();
+    loadStudentResults();
+    fetchAndUpdateAttendanceGraph();
+});
+=======
+document.addEventListener('DOMContentLoaded', () => {
+    updateStudentProfileInNavbar();
+    loadAttendanceRate();
+    loadStudentResults();
+    fetchAndUpdateAttendanceGraph();
+});
